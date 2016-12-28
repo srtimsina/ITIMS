@@ -7,7 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 //import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured('permitAll')
-class AssetsTypeController {
+class CPUController {
 
     def springSecurityService
 

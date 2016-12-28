@@ -97,7 +97,7 @@
 
             <div class="modal-body" style="height: 470px">
 
-                <g:form id="cpu-form" controller="assetsType" action="save" enctype="multipart/form-data">
+                <g:form id="cpu-form" controller="CPU" action="save" enctype="multipart/form-data">
 
                     <div class="form-group col-sm-3">
                         <label for="dateOfPurchase" class="col-sm-6 control-label">Date of Purchase</label>
@@ -269,7 +269,7 @@
 
             <div class="modal-body" style="height: 470px">
 
-                <g:form id="cpu-form" controller="assetsType" action="update" enctype="multipart/form-data">
+                <g:form id="cpu-form" controller="CPU" action="update" enctype="multipart/form-data">
 
                     <input type="hidden" id="cpu_id" name="cpu_id">
                     <div class="form-group col-sm-3">
@@ -451,7 +451,7 @@
 
         $.ajax({
             type: 'post',
-            url: "${createLink(controller: 'assetsType',action: 'delete')}",
+            url: "${createLink(controller: 'CPU',action: 'delete')}",
             data:"id="+id,
             success: function (data) {
 
@@ -474,7 +474,7 @@
 
         $.ajax({
             type: 'post',
-            url: "${createLink(controller: 'assetsType',action: 'edit')}",
+            url: "${createLink(controller: 'CPU',action: 'edit')}",
             data:"id="+id,
             success: function (data) {
 
@@ -505,7 +505,7 @@
     }
 </script>
 
-<g:form controller="assetsType" action="uploadCSV" enctype="multipart/form-data">
+<g:form controller="CPU" action="uploadCSV" enctype="multipart/form-data">
     <input type="file" name="csvFile" id="csvFile"/>
     <input type="submit" value="Upload"/>
 </g:form>
