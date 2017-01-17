@@ -17,7 +17,7 @@ hibernate {
 // environment specific settings
 environments {
     development {
-        dataSource {
+        dataSource {s
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3307/itims"
         }
