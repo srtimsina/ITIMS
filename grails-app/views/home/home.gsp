@@ -5,7 +5,7 @@
   Time: 8:39 AM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="itims.AssetsType" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -18,7 +18,7 @@
 
 <body>
 
-<div class="form-group col-sm-3">
+<div class="form-group col-md-6">
     <label for="assetsType" class="col-sm-6 control-label">Assets Type</label>
     <div class="col-sm-6">
 
@@ -30,6 +30,9 @@
             <option value="networkSwitch">Network Switch</option>
             <option value="router">Router</option>
             <option value="accessPoint">Access Point</option>
+            <g:each in="${AssetsType.all.assetsName.unique()}" var="assetName">
+                <option value="${assetName}">${assetName}</option>
+            </g:each>
         </select>
     </div>
 </div>
@@ -68,6 +71,9 @@
                     }
                     else if (controllerName == 'accessPoint') {
                         window.location.href = '<g:createLink controller='accessPoint' action='list'/>';
+                    }
+                    else if(controllerName == 'customAssetType'){
+                        window.location.href = '/ITIMS/assetsType/customList?assetName='+value;
                     }
 
                 },

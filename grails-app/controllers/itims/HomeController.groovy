@@ -34,6 +34,8 @@ class HomeController {
             redirectResource['controller'] = 'router'
         } else if (assetType == 'accessPoint') {
             redirectResource['controller'] = 'accessPoint'
+        }else {
+            redirectResource['controller'] = "customAssetType"
         }
         return render(redirectResource as JSON);
     }

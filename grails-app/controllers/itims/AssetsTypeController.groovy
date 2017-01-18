@@ -92,4 +92,54 @@ class AssetsTypeController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+    def customList(){
+        def assetName = params.assetName
+
+        def assetType = AssetsType.findAllByAssetsName(assetName)
+        def data = []
+
+
+        def rowNumber = AssetTypeData.all.rowNumber
+        long maxRow = rowNumber?.max()?rowNumber?.max():0
+
+
+        (0..maxRow).each {rowNo->
+            def assetsDataMap = [:]
+            assetType.each{eachAsset->
+                def assetData = AssetTypeData.findByRowNumberAndAssetsType(rowNo as Integer,eachAsset)
+                assetsDataMap.put(eachAsset?.fieldInfo?.fieldName,assetData?.fieldValue)
+            }
+            data.add(assetsDataMap)
+        }
+
+        render view:'customAssets.gsp',model: [data:data,assetType:assetType,assetName:assetName]
+    }
+
+    @Transactional
+    def saveCustomAssetData(){
+        def assetName = params.assetName
+        def assetType = AssetsType.findAllByAssetsName(assetName)
+
+        long maxRow = 0
+
+        def rowNumber = AssetTypeData.all.rowNumber
+        maxRow = rowNumber?.max() >=0 ?(rowNumber?.max()+1):0
+
+        assetType.each {eachAsset->
+            def fieldValue = params.get(eachAsset?.fieldInfo?.fieldName)
+            fieldValue = fieldValue?fieldValue:""
+
+            try{
+                def assetData = new AssetTypeData(assetsType: eachAsset,fieldValue: fieldValue,rowNumber: maxRow)
+                assetData.save(flush: true,failOnError:true)
+            }catch (Exception ex){
+                ex.printStackTrace()
+            }
+        }
+        redirect controller:'assetsType',action:'customList',params:[assetName: assetName]
+    }
+
+
 }
+
