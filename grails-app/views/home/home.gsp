@@ -10,30 +10,30 @@
 <head>
     <meta name="layout" content="main"/>
     <title>itims</title>
-    <link href="${resource(dir: 'media/css',file: 'jquery.dataTables.min.css')}" rel="stylesheet"  type="text/css">
-    <link href="${resource(dir: 'bootstrap/css',file: 'bootstrap.min.css')}" rel="stylesheet"  type="text/css">
-    %{--<script src="${resource(dir: 'media/js',file: 'jquery.js')}" type="text/javascript"></script>--}%
-    <script type="text/javascript" src="${resource(dir: 'js',file: 'jQuery-1.12.0.min.js')}"></script>
 </head>
 
 <body>
 
-<div class="form-group col-md-6">
-    <label for="assetsType" class="col-sm-6 control-label">Assets Type</label>
-    <div class="col-sm-6">
-
-        <select name="assetsType" id="assetsType" class="form-control" onchange="functionSelect();">
-            <option value="select">Select</option>
-            <option value="CPU">CPU</option>
-            <option value="monitor">Monitor</option>
-            <option value="laptop">Laptop</option>
-            <option value="networkSwitch">Network Switch</option>
-            <option value="router">Router</option>
-            <option value="accessPoint">Access Point</option>
-            <g:each in="${AssetsType.all.assetsName.unique()}" var="assetName">
-                <option value="${assetName}">${assetName}</option>
-            </g:each>
-        </select>
+<div class="row">
+    <div class="col-md-2">
+        <g:link controller="assetsType" action="create" class="btn btn-info">Create Asset Type</g:link>
+    </div>
+    <div class="col-md-6">
+        <div class="form-inline">
+            <label for="assetsType" class="control-label">Assets Type</label>
+            <select name="assetsType" id="assetsType" class="form-control" onchange="functionSelect();">
+                <option value="select">Select</option>
+                <option value="CPU">CPU</option>
+                <option value="monitor">Monitor</option>
+                <option value="laptop">Laptop</option>
+                <option value="networkSwitch">Network Switch</option>
+                <option value="router">Router</option>
+                <option value="accessPoint">Access Point</option>
+                <g:each in="${AssetsType.all.assetsName.unique()}" var="assetName">
+                    <option value="${assetName}">${assetName}</option>
+                </g:each>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -55,7 +55,7 @@
                     var controllerName = data['controller'];
 
                     if(controllerName == 'assetsType'){
-                        window.location.href = '<g:createLink controller='assetsType' action ='list'/>';
+                        window.location.href = '<g:createLink controller='CPU' action ='list'/>';
                     }
                     else if(controllerName == 'monitor'){
                         window.location.href = '<g:createLink controller='monitor' action ='list'/>';

@@ -10,19 +10,13 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Laptop</title>
-    <link href="${resource(dir: 'media/css',file: 'jquery.dataTables.min.css')}" rel="stylesheet"  type="text/css">
-    <link href="${resource(dir: 'bootstrap/css',file: 'bootstrap.min.css')}" rel="stylesheet"  type="text/css">
-    <script src="${resource(dir: 'media/js',file: 'jquery.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'media/js',file: 'jquery.dataTables.min.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'bootstrap/js',file: 'bootstrap.min.js')}" type="text/javascript"></script>
-
 </head>
 
 <body>
 %{--<g:link controller="laptop" action="Laptop"><button>New Laptop</button></g:link>--}%
 <button class="btn btn-primary" onclick="addLaptop()">Add Laptop</button>
-
-<div style="overflow-x: scroll; margin-left: 2%;width: 1445px;">
+<hr>
+<div style="overflow-x: scroll;">
 
     <table id="laptop-table" class="display">
     <thead>

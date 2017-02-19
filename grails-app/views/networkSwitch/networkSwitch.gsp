@@ -10,17 +10,12 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Network Switch</title>
-    <link href="${resource(dir: 'media/css',file: 'jquery.dataTables.min.css')}" rel="stylesheet"  type="text/css">
-    <link href="${resource(dir: 'bootstrap/css',file: 'bootstrap.min.css')}" rel="stylesheet"  type="text/css">
-    <script src="${resource(dir: 'media/js',file: 'jquery.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'media/js',file: 'jquery.dataTables.min.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'bootstrap/js',file: 'bootstrap.min.js')}" type="text/javascript"></script>
 </head>
 
 <body>
-<button class="btn btn-primary pull-left" onclick="addSwitch()">Add Switch</button>
-
-<div style="overflow-x: scroll; margin-left: 2%;width: 1445px;">
+<button class="btn btn-primary" onclick="addSwitch()">Add Switch</button>
+<hr>
+<div style="overflow-x: scroll;">
 
     <table id="switch-table" class="display">
         <thead>

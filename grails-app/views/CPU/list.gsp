@@ -10,11 +10,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>CPU</title>
-    <link href="${resource(dir: 'media/css',file: 'jquery.dataTables.min.css')}" rel="stylesheet"  type="text/css">
-    <link href="${resource(dir: 'bootstrap/css',file: 'bootstrap.min.css')}" rel="stylesheet"  type="text/css">
-    <script src="${resource(dir: 'media/js',file: 'jquery.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'media/js',file: 'jquery.dataTables.min.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'bootstrap/js',file: 'bootstrap.min.js')}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -23,10 +18,10 @@
 %{--<g:link controller="monitor" action="list"><button>New Monitor</button></g:link>--}%
 %{--<g:link controller="laptop" action="list"><button>New Laptop</button></g:link>--}%
 <sec:ifAllGranted roles="ROLE_ADMIN">
-    <button class="btn btn-primary pull-left" onclick="addCPU()">Add CPU</button>
+    <button class="btn btn-primary" onclick="addCPU()">Add CPU</button>
 </sec:ifAllGranted>
-
-<div style="overflow-x: scroll; margin-left: 2%;width: 1445px;">
+<hr>
+<div style="overflow-x: scroll;">
 
     <table id="cpu-table" class="display">
         <thead>

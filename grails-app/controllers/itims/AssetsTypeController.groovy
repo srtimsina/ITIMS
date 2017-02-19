@@ -103,17 +103,20 @@ class AssetsTypeController {
         def rowNumber = AssetTypeData.all.rowNumber
         long maxRow = rowNumber?.max()?rowNumber?.max():0
 
-
+        def assetDataId = []
         (0..maxRow).each {rowNo->
             def assetsDataMap = [:]
+            def eachAssetDataId = []
             assetType.each{eachAsset->
                 def assetData = AssetTypeData.findByRowNumberAndAssetsType(rowNo as Integer,eachAsset)
                 assetsDataMap.put(eachAsset?.fieldInfo?.fieldName,assetData?.fieldValue)
+                eachAssetDataId.add(assetData?.id)
             }
+            assetDataId.add(eachAssetDataId)
             data.add(assetsDataMap)
         }
 
-        render view:'customAssets.gsp',model: [data:data,assetType:assetType,assetName:assetName]
+        render view:'customAssets.gsp',model: [data:data,assetType:assetType,assetName:assetName,assetDataId:assetDataId]
     }
 
     @Transactional
@@ -138,6 +141,37 @@ class AssetsTypeController {
             }
         }
         redirect controller:'assetsType',action:'customList',params:[assetName: assetName]
+    }
+
+    def editAssetData(){
+        def assetsId = params.list("assetsId")
+        def assetsDataList = []
+        assetsId.each {
+            def assetData = AssetTypeData.findById(it as long)
+            assetsDataList.add(assetData)
+        }
+        render view:"editAssetsData",model:[assetsDataList:assetsDataList,assetName:params.assetName]
+    }
+
+    @Transactional
+    def deleteAssetData(){
+        def assetsId = params.list("assetsId")
+        assetsId.each {
+            def assetData = AssetTypeData.findById(it as long)
+            assetData.delete(flush: true,failOnError:true)
+        }
+        redirect controller:'assetsType',action:'customList',params:[assetName: params.assetName]
+    }
+
+    @Transactional
+    def updateCustomAssetData(){
+        def assetsId = params.list("assetsId")
+        assetsId.each {
+            def assetData = AssetTypeData.findById(it as long)
+            assetData?.fieldValue = params.get(it)
+            assetData.save(flush: true,failOnError:true)
+        }
+        redirect controller:'assetsType',action:'customList',params:[assetName: params.assetName]
     }
 
 

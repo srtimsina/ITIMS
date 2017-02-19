@@ -11,12 +11,6 @@
     <title>Custom Assets</title>
     <meta name="layout" content="main">
 
-    <link href="${resource(dir: 'media/css',file: 'jquery.dataTables.min.css')}" rel="stylesheet"  type="text/css">
-    <link href="${resource(dir: 'bootstrap/css',file: 'bootstrap.min.css')}" rel="stylesheet"  type="text/css">
-    <script src="${resource(dir: 'media/js',file: 'jquery.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'media/js',file: 'jquery.dataTables.min.js')}" type="text/javascript"></script>
-    <script src="${resource(dir: 'bootstrap/js',file: 'bootstrap.min.js')}" type="text/javascript"></script>
-
     <script type="text/javascript">
         function addCustomAsset(){
             $("#insert-customAsset").modal();
@@ -26,26 +20,58 @@
 
 <body>
 <button class="btn btn-primary" onclick="addCustomAsset()">Add ${assetName}</button>
+<hr>
+<div style="overflow-x: scroll;">
 
-
-
-<div style="overflow-x: scroll; margin-left: 2%;width: 1445px;">
-
-    <table id="monitor-table" class="display">
+    <table id="monitor-table" class="display table-bordered">
         <thead>
         <tr>
             <g:each in="${assetType?.fieldInfo}" var="field">
                 <th>${field?.fieldName?.toString()?.toUpperCase()}</th>
             </g:each>
+            <th>Action</th>
         </tr>
         </thead>
 
         <tbody>
-        <g:each in="${data}" var="d">
+        <g:each in="${data}" var="d" status="i">
             <tr>
+                <%
+                    boolean  shouldShow = false
+                %>
                 <g:each in="${assetType?.fieldInfo}" var="field">
-                    <td>${d[field?.fieldName]}</td>
+                    <%
+                        String value = d[field?.fieldName]
+                    %>
+                    <td>
+                    <g:if test="${value}">
+                        ${value}
+                        <%
+                            shouldShow = true
+                        %>
+                    </g:if>
+                    <g:else>
+                        </td>
+                    </g:else>
                 </g:each>
+                <g:if test="${shouldShow}">
+                    <td>
+                        <g:form controller="assetsType" action="editAssetData" style="display: inline-block">
+                            <g:each in="${assetDataId?.get(i)}" var="eachAssetId">
+                                <input type="hidden" name="assetsId" value="${eachAssetId}"/>
+                            </g:each>
+                            <input type="hidden" name="assetName" value="${assetName}"/>
+                            <input type="submit" value="Edit" class="btn btn-primary"/>
+                        </g:form>
+                        <g:form controller="assetsType" action="deleteAssetData" style="display: inline-block">
+                            <g:each in="${assetDataId?.get(i)}" var="eachAssetId">
+                                <input type="hidden" name="assetsId" value="${eachAssetId}"/>
+                            </g:each>
+                            <input type="hidden" name="assetName" value="${assetName}"/>
+                            <input type="submit" value="Delete" class="btn btn-primary"/>
+                        </g:form>
+                    </td>
+                </g:if>
             </tr>
         </g:each>
         </tbody>
@@ -56,7 +82,7 @@
 
 
 <div id="insert-customAsset" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" style="width: 90%" >
+    <div class="modal-dialog" style="width: 60%" >
 
         <div class="modal-content">
 
@@ -66,18 +92,17 @@
             </div>
 
             <div class="modal-body" style="height: 470px">
-
-                <g:form id="monitor-form" name="monitor-form" controller="assetsType" action="saveCustomAssetData" enctype="multipart/form-data">
+                <g:form class="form-horizontal col-md-9" id="monitor-form" name="monitor-form" controller="assetsType" action="saveCustomAssetData" enctype="multipart/form-data">
                     <g:each in="${assetType?.fieldInfo}" var="fields">
-                        <div class="form-group col-sm-3">
-                            <label for="${fields?.fieldName}" class="col-sm-6 control-label">${fields?.fieldName?.toString().toUpperCase()}</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="${fields?.fieldName}" name="${fields?.fieldName}">
-                            </div>
+                        <div class="form-group">
+                            <label for="${fields?.fieldName}">${fields?.fieldName?.toString().toUpperCase()}</label>
+                            <input type="text" class="form-control" id="${fields?.fieldName}" name="${fields?.fieldName}">
                         </div>
                     </g:each>
                     <input type="hidden" name="assetName" value="${assetName}"/>
-                    <input type="submit" value="save"/>
+                    <div class="form-group">
+                        <input type="submit" value="save" class="btn btn-primary"/>
+                    </div>
                 </g:form>
             </div>
         </div>
